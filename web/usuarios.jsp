@@ -3,8 +3,10 @@
     Created on : 8/11/2024, 10:16:22 a. m.
     Author     : IT
 --%>
+<%@page import="java.util.HashMap"%>
 <%@page import="javax.swing.table.DefaultTableModel"%>
 <%@page import="modelo.Usuario"%>
+<%@page import="modelo.Empleado"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -26,7 +28,18 @@
                 <input type="text" name="txt_usuario" id="txt_usuario" class="form-control" placeholder="Usuario" required>
                 <label for="lbl_contrasena"><b>Contraseña:</b></label>
                 <input type="password" name="txt_contrasena" id="txt_contrasena" class="form-control" placeholder="Contraseña" required>
-                <br>   
+                <label for="lbl_id_empleado"><b>Empleado:</b></label>
+                <select name="drop_id_empleado" id="drop_id_empleado" class="form-control">
+                    <%
+                    Empleado empleado = new Empleado (); 
+                    HashMap<String,String> drop = empleado.drop_empleados();
+                    for (String i: drop.keySet()){
+                        out.println("<option value='" + i + "'>"+ drop.get(i) + "</option>");
+                        }
+                        %>  
+                    </select>
+                    <br>
+                
                     <button name="btn_agregar" id="btn_agregar" value="agregar" class="btn btn-primary btn-lg" onclick="javascript:if(!confirm('¿Desea Agregar Puesto?'))" style="background-color: #1e74a7; border:none ">AGREGAR</button>
                     <button name="btn_modificar" id="btn_modificar" value="modificar" class="btn btn-primary btn-lg" onclick="javascript:if(!confirm('¿Desea Modificar Puesto?'))return false" style="background-color: #1e74a7; border:none ">MODIFICAR</button>
                     <button name="btn_eliminar" id="btn_eliminar" value="eliminar" class="btn btn-primary btn-lg" onclick="javascript:if(!confirm('¿Desea Eliminar Puesto?'))return false" style="background-color: #1e74a7; border:none">ELIMINAR</button>
@@ -38,8 +51,9 @@
         <th style="text-align: center">ID USUARIO</th>
         <th style="text-align: center">USUARIO</th>
         <th style="text-align: center">CONTRASEÑA</th>
-        <th style="text-align: center">NOMBRES</th>
-        <th style="text-align: center">APELLIDOS</th>
+        <th style="text-align: center">ID EMPLEADO</th>
+        <th style="text-align: center">NOMBRE COMPLETO </th>
+        <th style="text-align: center">PUESTO</th>
       </tr>
     </thead>
     <tbody id="tbl_usuarios">
@@ -48,11 +62,13 @@
         DefaultTableModel tabla = new DefaultTableModel();
         tabla = usuario.leer();
         for (int t=0;t<tabla.getRowCount();t++){
+            out.println("<tr>");
             out.println("<td>" + tabla.getValueAt(t, 0)+ "</td>");
             out.println("<td>" + tabla.getValueAt(t, 1)+ "</td>");
+            out.println("<td>" + tabla.getValueAt(t, 2)+ "</td>");
             out.println("<td>" + tabla.getValueAt(t, 3)+ "</td>");
-            out.println("<td>" + tabla.getValueAt(t, 4)+ "</td>");
-            out.println("<td>" + tabla.getValueAt(t, 5)+ "</td>");
+            out.println("<td>" + tabla.getValueAt(t, 4) + " " + tabla.getValueAt(t, 5) + "</td>");
+            out.println("<td>" + tabla.getValueAt(t, 6)+ "</td>");
             out.println("</tr>");
          }   
         %>   
@@ -61,7 +77,7 @@
      </div>
 
  <script type="text/javascript">
-            $('#tbl_puestos').on('click','tr td',function(evt){
+            $('#tbl_usuarios').on('click','tr td',function(evt){
              var target,id_usuario,usuario,contrasena,id_empleado;
              target = $(event.target);
              id_usuario = target.parent("tr").find("td").eq(0).html();
@@ -72,7 +88,7 @@
              $("#txt_id_usuario").val(id_usuario);
              $("#txt_usuario").val(usuario);            
              $("#txt_contrasena").val(contrasena);
-             $("#txt_id_empleado").val(id_empleado);
+             $("#drop_id_empleado").val(id_empleado);
              
             });
         </script>           

@@ -25,10 +25,6 @@
         <servlet-class>controlador.sr_marca</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>sr_validar_admin</servlet-name>
-        <servlet-class>controlador.sr_validar_admin</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>sr_validar_adm</servlet-name>
         <servlet-class>controlador.sr_validar_adm</servlet-class>
     </servlet>
@@ -59,10 +55,6 @@
     <servlet-mapping>
         <servlet-name>sr_marca</servlet-name>
         <url-pattern>/sr_marca</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>sr_validar_admin</servlet-name>
-        <url-pattern>/sr_validar_admin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>sr_validar_adm</servlet-name>

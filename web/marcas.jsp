@@ -18,7 +18,7 @@
     </head>
     <body>
          <br>
-    <center><h1>Formulario Proveedores</h1></center>
+    <center><h1>Formulario Marcas</h1></center>
         <div class="container">
             <form action="sr_marca" method="post" class="form-group">
                 <label for="lbl_id_marca"><b>Id Marca:</b></label>

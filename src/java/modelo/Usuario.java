@@ -65,18 +65,19 @@ public class Usuario {
     try{
          cn = new Conexion();
          cn.abrir_conexion();
-         String query = "SELECT e.id_usuario, e.usuario, e.contrasena, p.nombres, p.apellidos, e.id_empleado FROM usuarios AS e INNER JOIN empleados AS p ON e.id_empleado = p.id_empleado;";
+         String query = "SELECT e.id_usuario, e.usuario, e.contrasena, e.id_empleado, p.nombres, p.apellidos, puestos.puesto FROM usuarios AS e INNER JOIN empleados AS p ON e.id_empleado = p.id_empleado INNER JOIN puestos ON p.id_puesto = puestos.id_puesto;";
          ResultSet consulta = cn.conexionBD.createStatement().executeQuery(query);
-         String encabezado[] = {"id_usuario","usuario","contrasena","nombres","apellidos","id_empleado"};
+         String encabezado[] = {"id_usuario","usuario","contrasena","id_empleado","nombres","apellidos","puesto"};
          tabla.setColumnIdentifiers(encabezado);
-         String datos[] = new String[6];
+         String datos[] = new String[7];
          while (consulta.next()){
              datos[0] = consulta.getString("id_usuario");
              datos[1] = consulta.getString("usuario");
              datos[2] = consulta.getString("contrasena");
-             datos[3] = consulta.getString("nombres");
-             datos[4] = consulta.getString("apellidos");
-             datos[5] = consulta.getString("id_empleado");
+             datos[3] = consulta.getString("id_empleado");
+             datos[4] = consulta.getString("nombres");
+             datos[5] = consulta.getString("apellidos");
+             datos[6] = consulta.getString("puesto");
              tabla.addRow(datos);
          }
         cn.cerrar_conexion();
@@ -149,6 +150,6 @@ public class Usuario {
 }
     return retorno;
     }
-
+   
     
 }

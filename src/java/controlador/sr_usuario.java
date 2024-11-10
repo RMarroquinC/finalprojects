@@ -46,7 +46,7 @@ public class sr_usuario extends HttpServlet {
             out.println("</html>");
             
             usuario = new Usuario(Integer.valueOf(request.getParameter("txt_id_usuario")),
-            Integer.valueOf(request.getParameter("txt_id_empleado")),
+            Integer.valueOf(request.getParameter("drop_id_empleado")),
             request.getParameter("txt_usuario"),
             request.getParameter("txt_contrasena"));
                     

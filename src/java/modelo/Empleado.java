@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 public class Empleado {
     private int id_puesto, genero, id_empleado;
@@ -227,4 +228,23 @@ public class Empleado {
 }
     return retorno;
 }
+    
+    public HashMap<String, String> drop_empleados(){
+      HashMap<String, String> drop = new HashMap<>();  
+    try{
+        cn = new Conexion();
+        String query = "SELECT p.id_empleado, p.nombres, p.apellidos, puestos.puesto FROM empleados AS p INNER JOIN puestos ON p.id_puesto = puestos.id_puesto;";
+            cn.abrir_conexion();
+            ResultSet consulta = cn.conexionBD.createStatement().executeQuery(query);
+            while (consulta.next()) {
+                drop.put(consulta.getString("id_empleado"), consulta.getString("nombres") + " " + consulta.getString("apellidos")+ " / " + consulta.getString("puesto"));
+            }
+            cn.cerrar_conexion();
+    }catch(SQLException ex){
+        System.out.println("Error drop_empleados " + ex.getMessage());
+        
+    }
+      return drop;
+    }
+
 }
